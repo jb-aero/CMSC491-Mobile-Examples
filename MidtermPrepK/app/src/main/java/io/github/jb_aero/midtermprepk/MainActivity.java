@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 	Button login;
 	float x, y, z, flat, flon;
 	public static String name = "Username";
-	Handler handler;
+	Handler handler = new Handler();
 	Sensor accelerometer;
 	LocationManager lm;
 	SensorManager sm;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		accx = (EditText) findViewById(R.id.editText);
 		accy = (EditText) findViewById(R.id.editText2);
 		accz = (EditText) findViewById(R.id.editText3);
@@ -44,8 +45,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 		lon = (EditText) findViewById(R.id.editText5);
 		username = (EditText) findViewById(R.id.editText6);
 		login = (Button) findViewById(R.id.button);
+
 		lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 		sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+		accelerometer = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+		sp = getPreferences(Context.MODE_PRIVATE);
+		editor = sp.edit();
+		editor.putString(name, "kate14");
+		editor.commit();
+
+		login.setOnClickListener(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		sm.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 		if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			// TODO: Consider calling
 			//    ActivityCompat#requestPermissions
@@ -54,16 +70,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 			//                                          int[] grantResults)
 			// to handle the case where the user grants the permission. See the documentation
 			// for ActivityCompat#requestPermissions for more details.
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1337);
 			return;
 		}
 		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-		handler = new Handler();
-		accelerometer = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		sm.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-		sp = getPreferences(Context.MODE_PRIVATE);
-		editor = sp.edit();
-		editor.putString(name, "kate14");
-		editor.commit();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		sm.unregisterListener(this, accelerometer);
+		if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+			// TODO: Consider calling
+			//    ActivityCompat#requestPermissions
+			// here to request the missing permissions, and then overriding
+			//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+			//                                          int[] grantResults)
+			// to handle the case where the user grants the permission. See the documentation
+			// for ActivityCompat#requestPermissions for more details.
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1337);
+			return;
+		}
+		lm.removeUpdates(this);
 	}
 
 	@Override
