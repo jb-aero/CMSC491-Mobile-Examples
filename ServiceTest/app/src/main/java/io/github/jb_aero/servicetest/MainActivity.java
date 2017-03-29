@@ -55,16 +55,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.button && bound) {
-			Toast.makeText(this, "Functioning!", Toast.LENGTH_SHORT).show();
-			// value.setText(String.valueOf(service.pollGravity()));
+			value.setText(String.valueOf(service.pollGravity()));
 		}
 	}
 
 	ServiceConnection serviceConnection = new ServiceConnection() {
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder binder) {
-			MyService service = ((MyService.MyBinder) binder).getService();
-
+			service = ((MyService.MyBinder) binder).getService();
 			sm.registerListener(service, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 			bound = true;
 		}
