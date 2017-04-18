@@ -6,28 +6,27 @@
  * Time: 1:51 PM
  */
 
-$con = mysql_connect("host", "user", "password");
+$mysqli = new mysqli("host", "user", "password", "dbname");
 
-if (!$con)
+if ($mysqli->connect_errno)
 {
-	die("Did not connect to the mysqlserver: " . mysql_error());
+	die("Did not connect to the mysqlserver: " . $mysqli->connect_errno);
 }
 
-$list = mysql_list_tables("FriendFinder");
+$listdbtables = $mysqli->query("SHOW TABLES");
 
 $idarray = array();
 $latarray = array();
 $lonarray = array();
 $i = 0;
 
-while($i < mysql_num_rows($list))
+while($row = $listdbtables->fetch_row())
 {
-	$tb_names[$i] = mysql_tablename($list,$i);
-	$query = "SELECT * FROM $tb_names[$i] ORDER BY Date DESC LIMIT 1";
-	$result = mysql_query($con, $query);
-	$j = 0;
-	$num = mysql_num_rows($result);
-	while($j < $num)
+	$tb_name = row[0];
+	$query = "SELECT * FROM $tb_name ORDER BY Date DESC LIMIT 1";
+	$result = $mysqli->query($con, $query);
+	
+	while($something = $result->fetch_assoc())
 	{
 		$fdate = mysql_result($result, $j, "Date");
 		$flatitude = mysql_result($result, $j, "Latitude");
@@ -36,7 +35,6 @@ while($i < mysql_num_rows($list))
 		$latitudearray[] = $flatitude;
 		$j++;
 	}
-	$i++;
 }
 
 for ($k = 0; $k < $i; $k++)
