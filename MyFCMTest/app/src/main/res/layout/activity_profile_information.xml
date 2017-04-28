@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.jb_aero.myfcmtest.ProfileInformation">
+
+    <EditText
+        android:id="@+id/proName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="105dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/proAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/proName"
+        android:layout_alignStart="@+id/proName"
+        android:layout_below="@+id/proName"
+        android:layout_marginTop="41dp"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textPostalAddress"/>
+
+    <EditText
+        android:id="@+id/proPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/proAddress"
+        android:layout_alignStart="@+id/proAddress"
+        android:layout_below="@+id/proAddress"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:hint="Phone #"
+        android:inputType="phone"/>
+
+    <Button
+        android:id="@+id/proSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/proPhone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp"
+        android:text="Submit"/>
+</RelativeLayout>
