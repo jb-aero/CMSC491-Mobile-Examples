@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "42847384615",
+    "firebase_url": "https://icalogin-f963f.firebaseio.com",
+    "project_id": "icalogin-f963f",
+    "storage_bucket": "icalogin-f963f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42847384615:android:9f001e6da00137d8",
+        "android_client_info": {
+          "package_name": "io.github.jb_aero.simplelogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42847384615-0v3vkaqlkcjc1d2tpl19qkd3casn6vsr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUg7km5avvQDcobwj1Yf14LzQ4Dr7VBQI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
